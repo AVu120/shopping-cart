@@ -13,6 +13,6 @@ module.exports = {
     "vue/setup-compiler-macros": true,
   },
   rules: {
-    "vue/multi-word-component-names": "warning",
+    "vue/multi-word-component-names": 1,
   },
 };
