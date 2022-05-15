@@ -2,7 +2,7 @@
 import ProductCard from "@/components/ProductCard.vue";
 import { ref } from "vue";
 
-const inventory = ref(10);
+const inventory = ref(1);
 const onSale = true;
 const details = ["50% cotton", "30% wool", "20% polyester"];
 const variants = [
@@ -14,6 +14,10 @@ let cart = ref(0);
 
 const addToCart = () => {
   cart.value++;
+};
+
+const removeFromCart = () => {
+  cart.value > 0 && cart.value--;
 };
 </script>
 
@@ -28,6 +32,7 @@ const addToCart = () => {
       :sizes="sizes"
       :cart="cart"
       :add-to-cart="addToCart"
+      :remove-from-cart="removeFromCart"
     />
     <div class="cart">Cart({{ cart }})</div>
   </div>
@@ -41,7 +46,8 @@ const addToCart = () => {
 }
 
 .cart {
-  position: absolute;
+  position: fixed;
+  top: 1rem;
   right: 1rem;
   border: 1px solid grey;
   border-radius: 0.5rem;

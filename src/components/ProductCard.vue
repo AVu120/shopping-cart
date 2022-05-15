@@ -9,11 +9,12 @@ interface Props {
   sizes: string[];
   cart: number;
   addToCart: () => void;
+  removeFromCart: () => void;
 }
 
 const props = defineProps<Props>();
 
-const { variants, sizes } = toRefs(props);
+const { variants, sizes, inventory } = toRefs(props);
 
 const color = ref(variants.value[0].color);
 const size = ref(sizes.value[0]);
@@ -29,6 +30,8 @@ const updateHoverColor = (newColor: string) => {
 const updateSize = (newSize: string) => {
   size.value = newSize;
 };
+
+const isOutOfStock = inventory.value === 0;
 </script>
 
 <template>
@@ -36,6 +39,7 @@ const updateSize = (newSize: string) => {
     <div class="contents">
       <img
         class="product_image"
+        :class="{ out_of_stock_product: isOutOfStock }"
         :src="
           variants[
             variants.findIndex((variant) => variant.color === hoverColor)
@@ -46,10 +50,9 @@ const updateSize = (newSize: string) => {
       />
       <div class="product_info">
         <h1>{{ title + (onSale ? " - On Sale" : "") }}</h1>
-        <div class="product_in_stock">
+        <div v-if="inventory > 0" class="product_in_stock">
           <p v-if="inventory > 10">In Stock</p>
           <p v-else-if="inventory > 0">Almost sold out!</p>
-          <p v-else>Out of Stock</p>
         </div>
         <div class="product_info_grid">
           <div>
@@ -92,7 +95,24 @@ const updateSize = (newSize: string) => {
         </div>
       </div>
     </div>
-    <button class="add_to_cart_button" @click="addToCart">Add to cart</button>
+    <div class="cart_button_group">
+      <p v-if="isOutOfStock">Out of stock</p>
+      <button
+        v-if="inventory > 0"
+        class="add_to_cart_button"
+        @click="addToCart"
+        :style="{ cursor: isOutOfStock ? 'not-allowed' : 'pointer' }"
+      >
+        Add to cart
+      </button>
+      <button
+        v-if="cart > 0"
+        class="add_to_cart_button"
+        @click="removeFromCart"
+      >
+        Remove from cart
+      </button>
+    </div>
   </div>
 </template>
 
@@ -119,6 +139,10 @@ const updateSize = (newSize: string) => {
   margin-right: 2rem;
 }
 
+.out_of_stock_product {
+  opacity: 0.5;
+}
+
 .product_info {
   display: flex;
   flex-direction: column;
@@ -134,6 +158,10 @@ const updateSize = (newSize: string) => {
   grid-column-gap: 1rem;
 }
 
+.cart_button_group {
+  display: flex;
+  column-gap: 1rem;
+}
 .add_to_cart_button {
   padding: 1rem;
   width: fit-content;
