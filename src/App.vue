@@ -5,7 +5,10 @@ import { ref } from "vue";
 const inventory = ref(10);
 const onSale = true;
 const details = ["50% cotton", "30% wool", "20% polyester"];
-const variants = ["green", "blue"];
+const variants = [
+  { color: "green", image: "/socks_green.jpeg" },
+  { color: "blue", image: "/socks_blue.jpeg" },
+];
 const sizes = ["xs", "s", "m", "l", "xl"];
 let cart = ref(0);
 

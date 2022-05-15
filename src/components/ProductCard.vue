@@ -1,21 +1,40 @@
 <script setup lang="ts">
+import { ref, toRefs } from "vue";
 interface Props {
   title: string;
   inventory: number;
   onSale: boolean;
   details: string[];
-  variants: string[];
+  variants: { color: string; image: string }[];
   sizes: string[];
   cart: number;
   addToCart: () => void;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const { variants, sizes } = toRefs(props);
+
+const color = ref(variants.value[0].color);
+const size = ref(sizes.value[0]);
+
+const updateColor = (newColor: string) => {
+  color.value = newColor;
+};
+
+const updateSize = (newSize: string) => {
+  size.value = newSize;
+};
 </script>
 
 <template>
   <div class="card">
-    <img class="product_image" src="/socks_green.jpeg" />
+    <img
+      class="product_image"
+      :src="
+        variants[variants.findIndex((variant) => variant.color === color)].image
+      "
+    />
     <div class="product_info">
       <h1>{{ title + (onSale ? " - On Sale" : "") }}</h1>
       <div class="product_in_stock">
@@ -33,7 +52,26 @@ defineProps<Props>();
         <div>
           <h2>Color</h2>
           <!-- <ul> -->
-          <li v-for="variant in variants" :key="variant">{{ variant }}</li>
+          <div class="radio_button_group">
+            <label
+              v-for="variant in variants"
+              :key="variant.color"
+              class="radio_option"
+            >
+              <input
+                type="radio"
+                :id="variant.color"
+                name="color"
+                :value="variant.color"
+                :defaultChecked="variant.color === color"
+                @click="updateColor(variant.color)"
+              />
+              {{ variant.color }}
+            </label>
+          </div>
+          <!-- <li v-for="variant in variants" :key="variant.color">
+            {{ variant.color }}
+          </li> -->
           <!-- </ul> -->
         </div>
         <div>
@@ -87,6 +125,15 @@ defineProps<Props>();
   border: none;
   border-radius: 1rem;
   font-weight: bold;
+  cursor: pointer;
+}
+
+.radio_button_group {
+  display: flex;
+  flex-direction: column;
+}
+
+.radio_option {
   cursor: pointer;
 }
 </style>
