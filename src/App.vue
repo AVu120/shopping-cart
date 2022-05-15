@@ -38,7 +38,6 @@ const addToCart = () => {
 
 .container {
   display: flex;
-  padding: 1rem;
 }
 
 .cart {
@@ -47,5 +46,6 @@ const addToCart = () => {
   border: 1px solid grey;
   border-radius: 0.5rem;
   padding: 0.5rem;
+  background-color: white;
 }
 </style>
