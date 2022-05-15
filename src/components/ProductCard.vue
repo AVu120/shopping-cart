@@ -79,14 +79,22 @@ const updateSize = (newSize: string) => {
           <li v-for="size in sizes" :key="size">{{ size }}</li>
         </div>
       </div>
-      <button class="add_to_cart_button" @click="addToCart">Add to cart</button>
     </div>
+    <button class="add_to_cart_button" @click="addToCart">Add to cart</button>
   </div>
 </template>
 
 <style>
+@media only screen and (max-width: 900px) {
+  .card {
+    flex-direction: column;
+  }
+
+  h1 {
+    margin-top: 1rem;
+  }
+}
 .card {
-  height: 400px;
   background-color: lightblue;
   display: flex;
   align-items: center;
