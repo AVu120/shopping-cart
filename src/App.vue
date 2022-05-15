@@ -1,12 +1,32 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import ProductCard from "@/components/ProductCard.vue";
+import { ref } from "vue";
+
+const inventory = ref(10);
+const onSale = true;
+const details = ["50% cotton", "30% wool", "20% polyester"];
+const variants = ["green", "blue"];
+const sizes = ["xs", "s", "m", "l", "xl"];
+let cart = ref(0);
+
+const incrementCart = () => {
+  cart.value++;
+};
+</script>
 
 <template>
   <div class="container">
-    <img class="product_image" src="/socks_green.jpeg" />
-    <div class="product_info">
-      <h1>Socks</h1>
-      <p>In Stock</p>
-    </div>
+    <ProductCard
+      title="Socks"
+      :inventory="inventory"
+      :on-sale="onSale"
+      :details="details"
+      :variants="variants"
+      :sizes="sizes"
+      :cart="cart"
+      :increment-cart="incrementCart"
+    />
+    <div class="cart">Cart({{ cart }})</div>
   </div>
 </template>
 
@@ -15,18 +35,14 @@
 
 .container {
   display: flex;
-  justify-content: center;
-  height: 100vh;
-  padding-top: 5rem;
+  padding: 1rem;
 }
 
-.product_image {
-  height: 300px;
-  width: 300px;
-}
-
-.product_info {
-  display: flex;
-  flex-direction: column;
+.cart {
+  position: absolute;
+  right: 1rem;
+  border: 1px solid grey;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
 }
 </style>
