@@ -55,6 +55,7 @@ const submitForm = () => {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   width: fit-content;
   border-radius: 1rem;
+  height: fit-content;
 }
 
 .button {
@@ -78,5 +79,11 @@ label {
 .select {
   position: relative;
   top: 2px;
+}
+
+@media only screen and (max-width: 900px) {
+  .review_form {
+    width: 335px;
+  }
 }
 </style>

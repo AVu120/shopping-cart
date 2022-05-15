@@ -74,7 +74,6 @@ const isOutOfStock = inventory.value === 0;
               >
                 <input
                   type="radio"
-                  :id="variant.color"
                   name="color"
                   :value="variant.color"
                   :defaultChecked="variant.color === color"
@@ -90,7 +89,17 @@ const isOutOfStock = inventory.value === 0;
           </div>
           <div>
             <h2>Size</h2>
-            <li v-for="size in sizes" :key="size">{{ size }}</li>
+            <div class="radio_button_group">
+              <label v-for="size in sizes" :key="size" class="radio_option">
+                <input
+                  type="radio"
+                  name="size"
+                  :value="size"
+                  :defaultChecked="size === sizes[0]"
+                />
+                {{ size }}
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -120,17 +129,17 @@ const isOutOfStock = inventory.value === 0;
 .card {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   background-color: lightblue;
   padding: 2rem;
   border-radius: 2rem;
-  width: fit-content;
+  width: 100%;
 }
 
 .contents {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
 }
 .product_image {
   height: 300px;
@@ -164,7 +173,7 @@ const isOutOfStock = inventory.value === 0;
   column-gap: 1rem;
 }
 .add_to_cart_button {
-  padding: 1rem;
+  padding: 0.5rem;
   width: fit-content;
   background-color: black;
   color: white;
@@ -186,6 +195,7 @@ const isOutOfStock = inventory.value === 0;
 @media only screen and (max-width: 900px) {
   .contents {
     flex-direction: column;
+    align-items: flex-start;
   }
 
   h1 {

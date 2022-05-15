@@ -56,6 +56,7 @@ const submitReview = ({ name, review, rating }: IReview) => {
 .container {
   display: flex;
   flex-direction: column;
+  padding: 1rem;
 }
 
 .cart {
@@ -71,12 +72,17 @@ const submitReview = ({ name, review, rating }: IReview) => {
 .review_section {
   display: flex;
   margin-top: 2rem;
-  column-gap: 5rem;
+  column-gap: 2rem;
 }
 
 @media only screen and (max-width: 900px) {
   .review_section {
     flex-direction: column;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 0;
   }
 }
 </style>

@@ -33,10 +33,9 @@ defineProps<Props>();
 <style scoped>
 .container {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  width: fit-content;
+  width: 100%;
   border-radius: 1rem;
   padding: 1rem 3rem;
-  margin-top: 1rem;
 }
 
 .review {
@@ -48,5 +47,18 @@ defineProps<Props>();
   font-style: italic;
   list-style: none;
   padding-left: 1.5rem;
+  overflow-wrap: break-word;
+  line-height: 1rem;
+}
+
+@media only screen and (max-width: 900px) {
+  .container {
+    margin-top: 1rem;
+    /* width: 335px; */
+  }
+
+  /* .review_text {
+    inline-size: 335px;
+  } */
 }
 </style>
