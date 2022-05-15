@@ -9,7 +9,7 @@ const variants = ["green", "blue"];
 const sizes = ["xs", "s", "m", "l", "xl"];
 let cart = ref(0);
 
-const incrementCart = () => {
+const addToCart = () => {
   cart.value++;
 };
 </script>
@@ -24,7 +24,7 @@ const incrementCart = () => {
       :variants="variants"
       :sizes="sizes"
       :cart="cart"
-      :increment-cart="incrementCart"
+      :add-to-cart="addToCart"
     />
     <div class="cart">Cart({{ cart }})</div>
   </div>

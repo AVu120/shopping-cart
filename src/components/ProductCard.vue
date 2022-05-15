@@ -7,7 +7,7 @@ interface Props {
   variants: string[];
   sizes: string[];
   cart: number;
-  incrementCart: () => void;
+  addToCart: () => void;
 }
 
 defineProps<Props>();
@@ -41,9 +41,7 @@ defineProps<Props>();
           <li v-for="size in sizes" :key="size">{{ size }}</li>
         </div>
       </div>
-      <button class="add_to_cart_button" v-on:click="incrementCart()">
-        Add to cart
-      </button>
+      <button class="add_to_cart_button" @click="addToCart">Add to cart</button>
     </div>
   </div>
 </template>
