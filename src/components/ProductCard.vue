@@ -116,7 +116,7 @@ const isOutOfStock = inventory.value === 0;
   </div>
 </template>
 
-<style>
+<style scoped>
 .card {
   display: flex;
   flex-direction: column;
@@ -124,6 +124,7 @@ const isOutOfStock = inventory.value === 0;
   background-color: lightblue;
   padding: 2rem;
   border-radius: 2rem;
+  width: fit-content;
 }
 
 .contents {

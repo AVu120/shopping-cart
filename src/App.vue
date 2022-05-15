@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import ProductCard from "@/components/ProductCard.vue";
+import ReviewForm from "@/components/ReviewForm.vue";
+import Reviews from "@/components/Reviews.vue";
 import { ref } from "vue";
+import type { IReview } from "@/types";
 
 const inventory = ref(1);
 const onSale = true;
@@ -11,6 +14,7 @@ const variants = [
 ];
 const sizes = ["xs", "s", "m", "l", "xl"];
 let cart = ref(0);
+const reviews = ref<IReview[]>([]);
 
 const addToCart = () => {
   cart.value++;
@@ -18,6 +22,10 @@ const addToCart = () => {
 
 const removeFromCart = () => {
   cart.value > 0 && cart.value--;
+};
+
+const submitReview = ({ name, review, rating }: IReview) => {
+  reviews.value.push({ name, review, rating });
 };
 </script>
 
@@ -35,6 +43,10 @@ const removeFromCart = () => {
       :remove-from-cart="removeFromCart"
     />
     <div class="cart">Cart({{ cart }})</div>
+    <div class="review_section">
+      <ReviewForm :onSubmit="submitReview" />
+      <Reviews :reviews="reviews" />
+    </div>
   </div>
 </template>
 
@@ -43,6 +55,7 @@ const removeFromCart = () => {
 
 .container {
   display: flex;
+  flex-direction: column;
 }
 
 .cart {
@@ -53,5 +66,17 @@ const removeFromCart = () => {
   border-radius: 0.5rem;
   padding: 0.5rem;
   background-color: white;
+}
+
+.review_section {
+  display: flex;
+  margin-top: 2rem;
+  column-gap: 5rem;
+}
+
+@media only screen and (max-width: 900px) {
+  .review_section {
+    flex-direction: column;
+  }
 }
 </style>
