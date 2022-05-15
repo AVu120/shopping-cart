@@ -17,9 +17,13 @@ const { variants, sizes } = toRefs(props);
 
 const color = ref(variants.value[0].color);
 const size = ref(sizes.value[0]);
+const hoverColor = ref(variants.value[0].color);
 
 const updateColor = (newColor: string) => {
   color.value = newColor;
+};
+const updateHoverColor = (newColor: string) => {
+  hoverColor.value = newColor;
 };
 
 const updateSize = (newSize: string) => {
@@ -33,6 +37,9 @@ const updateSize = (newSize: string) => {
       <img
         class="product_image"
         :src="
+          variants[
+            variants.findIndex((variant) => variant.color === hoverColor)
+          ]?.image ||
           variants[variants.findIndex((variant) => variant.color === color)]
             .image
         "
@@ -59,6 +66,8 @@ const updateSize = (newSize: string) => {
                 v-for="variant in variants"
                 :key="variant.color"
                 class="radio_option"
+                @mouseover="updateHoverColor(variant.color)"
+                @mouseleave="updateHoverColor('')"
               >
                 <input
                   type="radio"
